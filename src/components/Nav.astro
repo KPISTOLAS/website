@@ -1,0 +1,101 @@
+---
+import { site } from '../config/site';
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+
+function isParentActive(children: { href?: string }[]): boolean {
+  return children.some((child) => child.href && isActive(child.href));
+}
+---
+
+<nav class="nav" id="main-nav" aria-label="Κύρια πλοήγηση">
+  <ul class="nav__list">
+    {
+      site.nav.map((item) =>
+        item.children ? (
+          <li
+            class:list={['nav__item', { 'nav__item--expanded': isParentActive(item.children) }]}
+          >
+            <button
+              type="button"
+              class="nav__link nav__link--parent"
+              aria-expanded="false"
+              data-nav-toggle
+            >
+              {item.label}
+              <svg class="nav__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path
+                  d="M3 4.5L6 7.5L9 4.5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <ul class="nav__dropdown">
+              {item.children.map((child) => (
+                <li>
+                  <a
+                    href={child.href}
+                    class:list={[
+                      'nav__dropdown-link',
+                      { 'nav__dropdown-link--active': child.href && isActive(child.href) },
+                    ]}
+                  >
+                    {child.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : (
+          <li class="nav__item">
+            <a
+              href={item.href}
+              class:list={['nav__link', { 'nav__link--active': item.href && isActive(item.href) }]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ),
+      )
+    }
+  </ul>
+</nav>
+
+<script>
+  const navToggle = document.getElementById('nav-toggle');
+  const mainNav = document.getElementById('main-nav');
+
+  navToggle?.addEventListener('click', () => {
+    const isOpen = mainNav?.classList.toggle('nav--open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('[data-nav-toggle]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      if (window.innerWidth > 900) return;
+      e.preventDefault();
+      const item = btn.closest('.nav__item');
+      const expanded = item?.classList.toggle('nav__item--expanded');
+      btn.setAttribute('aria-expanded', String(expanded));
+    });
+  });
+
+  mainNav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 900) {
+        mainNav.classList.remove('nav--open');
+        navToggle?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+</script>

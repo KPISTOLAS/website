@@ -1,0 +1,39 @@
+---
+import type { Announcement } from '../config/site';
+
+interface Props {
+  items: Announcement[];
+}
+
+const { items } = Astro.props;
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('el-GR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+---
+
+{
+  items.length > 0 ? (
+    <ul class="announcement-list">
+      {items.map((item) => (
+        <li class="announcement-item">
+          <time class="announcement-item__date" datetime={item.date}>
+            {formatDate(item.date)}
+          </time>
+          <div>
+            <h3 class="announcement-item__title">
+              {item.href ? <a href={item.href}>{item.title}</a> : item.title}
+            </h3>
+            <p class="announcement-item__excerpt">{item.excerpt}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="announcement-empty">Δεν υπάρχουν ακόμη ανακοινώσεις.</p>
+  )
+}

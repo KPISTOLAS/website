@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PlaceholderContent from '../../components/PlaceholderContent.astro';
+---
+
+<BaseLayout title="Πρόεδροι">
+  <PageHeader title="Πρόεδροι" breadcrumbs={[{ label: 'Σύλλογος' }]} />
+  <section class="section">
+    <div class="container prose">
+      <PlaceholderContent>
+        <p>Εδώ θα καταχωρηθούν οι πρόεδροι του συλλόγου ανά περίοδο.</p>
+      </PlaceholderContent>
+    </div>
+  </section>
+</BaseLayout>

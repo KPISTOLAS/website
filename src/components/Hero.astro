@@ -1,0 +1,22 @@
+---
+import { site } from '../config/site';
+import LogoMark from './LogoMark.astro';
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div>
+      <p class="hero__eyebrow">Πολιτιστικός Σύλλογος · {site.location}</p>
+      <h1 class="hero__title">{site.shortName}</h1>
+      <p class="hero__subtitle">
+        Διατηρούμε ζωντανή τη σαρακατσάνικη παράδοση μέσα από χορούς, εκδηλώσεις και
+        πολιτιστικές δράσεις στον Νομό Καβάλας.
+      </p>
+      <div class="hero__actions">
+        <a href="/xoreftika" class="btn btn--primary">Χορευτικά Τμήματα</a>
+        <a href="/epikoinonia" class="btn btn--outline">Επικοινωνία</a>
+      </div>
+    </div>
+    <LogoMark class="hero__motif" />
+  </div>
+</section>

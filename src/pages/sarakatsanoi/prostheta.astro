@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PlaceholderContent from '../../components/PlaceholderContent.astro';
+---
+
+<BaseLayout title="Πρόσθετα Στοιχεία">
+  <PageHeader title="Πρόσθετα Στοιχεία" breadcrumbs={[{ label: 'Σαρακατσάνοι' }]} />
+  <section class="section">
+    <div class="container prose">
+      <PlaceholderContent>
+        <p>Συμπληρωματικές πληροφορίες, βιβλιογραφία και ενδιαφέροντα στοιχεία.</p>
+      </PlaceholderContent>
+    </div>
+  </section>
+</BaseLayout>

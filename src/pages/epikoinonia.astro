@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout title="Επικοινωνία">
+  <PageHeader title="Επικοινωνία" />
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <div class="contact-info__item">
+          <p class="contact-info__label">Σύλλογος</p>
+          <p class="contact-info__value">{site.name}</p>
+        </div>
+        <div class="contact-info__item">
+          <p class="contact-info__label">Διεύθυνση</p>
+          <p class="contact-info__value">{site.contact.address}</p>
+        </div>
+        <div class="contact-info__item">
+          <p class="contact-info__label">Τηλέφωνο</p>
+          <p class="contact-info__value">
+            <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>{site.contact.phone}</a>
+          </p>
+        </div>
+        <div class="contact-info__item">
+          <p class="contact-info__label">Email</p>
+          <p class="contact-info__value">
+            {
+              site.contact.email ? (
+                <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+              ) : (
+                'Email — προς συμπλήρωση'
+              )
+            }
+          </p>
+        </div>
+        <div class="contact-info__item">
+          <p class="contact-info__label">Ώρες Λειτουργίας</p>
+          <p class="contact-info__value">{site.hours}</p>
+        </div>
+      </div>
+
+      <div>
+        <h2>Στείλτε μήνυμα</h2>
+        <form
+          class="contact-form"
+          action={site.contact.email ? `mailto:${site.contact.email}` : undefined}
+          method="post"
+          enctype="text/plain"
+        >
+          <div class="form-group">
+            <label for="name">Ονοματεπώνυμο</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Μήνυμα</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary">Αποστολή</button>
+          <p class="form-note">
+            Η φόρμα ανοίγει το πρόγραμμα email σας. Σύντομα μπορεί να συνδεθεί με online
+            υπηρεσία αποστολής μηνυμάτων.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

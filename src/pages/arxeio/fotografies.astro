@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PlaceholderContent from '../../components/PlaceholderContent.astro';
+
+const placeholders = Array.from({ length: 8 }, (_, i) => i + 1);
+---
+
+<BaseLayout title="Φωτογραφίες">
+  <PageHeader title="Φωτογραφίες" breadcrumbs={[{ label: 'Αρχείο' }]} />
+  <section class="section">
+    <div class="container">
+      <p class="prose">
+        Φωτογραφικό αρχείο από εκδηλώσεις, παρουσιάσεις και δράσεις του συλλόγου.
+      </p>
+      <div class="photo-grid" style="margin-top: 2rem;">
+        {
+          placeholders.map((n) => (
+            <div class="photo-placeholder">
+              <span>Φωτογραφία {n}</span>
+            </div>
+          ))
+        }
+      </div>
+      <div style="margin-top: 2rem;">
+        <PlaceholderContent message="Οι φωτογραφίες θα προστεθούν σύντομα." />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

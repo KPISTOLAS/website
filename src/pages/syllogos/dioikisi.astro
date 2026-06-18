@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PlaceholderContent from '../../components/PlaceholderContent.astro';
+---
+
+<BaseLayout title="Διοικητικό Συμβούλιο">
+  <PageHeader title="Διοικητικό Συμβούλιο" breadcrumbs={[{ label: 'Σύλλογος' }]} />
+  <section class="section">
+    <div class="container prose">
+      <PlaceholderContent>
+        <p>Εδώ θα δημοσιευθεί η σύνθεση του τρέχοντος Διοικητικού Συμβουλίου.</p>
+      </PlaceholderContent>
+    </div>
+  </section>
+</BaseLayout>

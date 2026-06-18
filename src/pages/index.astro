@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import AnnouncementList from '../components/AnnouncementList.astro';
+import { announcements, quickLinks } from '../config/site';
+---
+
+<BaseLayout title="Αρχική">
+  <Hero />
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Ανακοινώσεις Συλλόγου</h2>
+      <AnnouncementList items={announcements} />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="section-title">Εξερευνήστε</h2>
+      <div class="grid grid--3">
+        {
+          quickLinks.map((link) => (
+            <a href={link.href} class="card quick-link">
+              <div class="card__body">
+                <svg class="quick-link__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                  <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5"></circle>
+                  <path
+                    d="M20 12v16M12 20h16"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <h3 class="quick-link__title">{link.title}</h3>
+                <p class="quick-link__desc">{link.description}</p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

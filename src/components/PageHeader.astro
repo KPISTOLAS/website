@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string;
+  breadcrumbs?: { label: string; href?: string }[];
+}
+
+const { title, breadcrumbs = [] } = Astro.props;
+---
+
+<div class="page-header">
+  <div class="container">
+    {
+      breadcrumbs.length > 0 && (
+        <ol class="page-header__breadcrumb">
+          <li>
+            <a href="/">Αρχική</a>
+          </li>
+          {breadcrumbs.map((crumb) => (
+            <li>
+              {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : crumb.label}
+            </li>
+          ))}
+        </ol>
+      )
+    }
+    <h1 class="page-header__title">{title}</h1>
+  </div>
+</div>

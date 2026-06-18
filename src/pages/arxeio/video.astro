@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PlaceholderContent from '../../components/PlaceholderContent.astro';
+---
+
+<BaseLayout title="Βίντεο – Εκδηλώσεις">
+  <PageHeader title="Βίντεο – Εκδηλώσεις" breadcrumbs={[{ label: 'Αρχείο' }]} />
+  <section class="section">
+    <div class="container prose">
+      <p>
+        Βίντεο από χορευτικές παρουσιάσεις, εκδηλώσεις και εκδηλώσεις του συλλόγου.
+      </p>
+      <PlaceholderContent message="Τα βίντεο θα προστεθούν σύντομα.">
+        <p>Μπορείτε να συνδέσετε το κανάλι YouTube του συλλόγου από τις ρυθμίσεις στο <code>site.ts</code>.</p>
+      </PlaceholderContent>
+    </div>
+  </section>
+</BaseLayout>

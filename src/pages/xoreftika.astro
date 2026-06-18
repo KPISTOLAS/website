@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderContent from '../components/PlaceholderContent.astro';
+
+const groups = [
+  {
+    title: 'Παιδικό Τμήμα',
+    description: 'Εκμάθηση σαρακατσάνικων χορών για παιδιά. Ώρες προπονήσεων προς ανακοίνωση.',
+  },
+  {
+    title: 'Νεανικό / Εφήβων',
+    description: 'Τμήμα για νέους χορευτές με εμπειρία σε παραδοσιακούς χορούς.',
+  },
+  {
+    title: 'Ενηλίκων',
+    description: 'Τμήμα ενηλίκων — διατήρηση και μετάδοση της σαρακατσάνικης χορευτικής παράδοσης.',
+  },
+];
+---
+
+<BaseLayout title="Χορευτικά">
+  <PageHeader title="Χορευτικά" />
+  <section class="section">
+    <div class="container">
+      <p class="prose">
+        Τα χορευτικά τμήματα του συλλόγου μας εκπαιδεύουν μέλη κάθε ηλικίας στους
+        σαρακατσάνικους χορούς, με σεβασμό στην αυθεντική μορφή και την παράδοση.
+      </p>
+      <div class="grid grid--3" style="margin-top: 2rem;">
+        {
+          groups.map((group) => (
+            <div class="dance-group">
+              <h3 class="dance-group__title">{group.title}</h3>
+              <p class="dance-group__desc">{group.description}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div style="margin-top: 2rem;">
+        <PlaceholderContent message="Λεπτομέρειες ωραρίου και εγγραφών θα ανακοινωθούν σύντομα." />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

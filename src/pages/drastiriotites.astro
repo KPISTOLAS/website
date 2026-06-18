@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderContent from '../components/PlaceholderContent.astro';
+---
+
+<BaseLayout title="Δραστηριότητες">
+  <PageHeader title="Δραστηριότητες" />
+  <section class="section">
+    <div class="container prose">
+      <p>
+        Εδώ θα δημοσιεύονται οι πολιτιστικές εκδηλώσεις, συμμετοχές σε πανελλήνιες
+        εκδηλώσεις, εκδρομές και άλλες δράσεις του συλλόγου.
+      </p>
+      <PlaceholderContent message="Δεν υπάρχουν ακόμη καταχωρημένες δραστηριότητες." />
+    </div>
+  </section>
+</BaseLayout>
