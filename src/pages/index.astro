@@ -2,7 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import AnnouncementList from '../components/AnnouncementList.astro';
-import { announcements, quickLinks } from '../config/site';
+import { quickLinks } from '../config/site';
+import { getAnnouncements } from '../lib/announcements';
+
+const announcements = await getAnnouncements();
 ---
 
 <BaseLayout title="Αρχική">
