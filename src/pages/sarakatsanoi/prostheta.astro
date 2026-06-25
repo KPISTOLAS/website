@@ -1,16 +1,74 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
-import PlaceholderContent from '../../components/PlaceholderContent.astro';
+
+const books = [
+  {
+    title: 'Οι αρχαιοελληνικές ρίζες του σαρακατσιάνικου λόγου',
+    author: 'Νίκος Ηλ. Κατσαρός',
+  },
+  {
+    title: 'Σαρακατσιάναιοι — Συρράκο και Σακαρέτσι',
+    author: 'Νίκος Ηλ. Κατσαρός',
+  },
+  {
+    title: 'Τα σαρακατσιάνικα τσελιγκάτα του Βερμίου και η ζωή στις στάνες τους',
+    author: 'Νίκος Ηλ. Κατσαρός',
+  },
+  {
+    title: 'Οι Σαρακατσάνοι της Βουλγαρίας',
+    author: 'Ευριπίδης Π. Μακρής',
+  },
+  {
+    title: 'Μνήμη Κατσαντώνη',
+    author: 'Αδελφότητα Ηπειρωτών Σαρακατσαναίων Αθήνας (επανέκδοση)',
+  },
+  {
+    title: 'Οι Σαρακατσαναίοι στον Μακεδονικό Αγώνα',
+    author: 'Γιάννης Θ. Κουτσοκώστας',
+  },
+];
+
+const links = [
+  { label: 'Πανελλήνια Ομοσπονδία Συλλόγων Σαρακατσαναίων', href: 'https://www.sarakatsanoi.gr/' },
+  { label: 'Ιστολόγιο του Συλλόγου «Ο Φλάμπουρας»', href: 'https://flabouras.blogspot.com/' },
+  { label: 'Σελίδα του Συλλόγου στο Facebook', href: 'https://www.facebook.com/groups/58563429647/' },
+];
 ---
 
 <BaseLayout title="Πρόσθετα Στοιχεία">
   <PageHeader title="Πρόσθετα Στοιχεία" breadcrumbs={[{ label: 'Σαρακατσάνοι' }]} />
   <section class="section">
-    <div class="container prose">
-      <PlaceholderContent>
-        <p>Συμπληρωματικές πληροφορίες, βιβλιογραφία και ενδιαφέροντα στοιχεία.</p>
-      </PlaceholderContent>
+    <div class="container">
+      <div class="prose">
+        <p>
+          Συμπληρωματικές πληροφορίες, βιβλιογραφία και χρήσιμοι σύνδεσμοι για όσους
+          θέλουν να γνωρίσουν περισσότερα για τους Σαρακατσάνους.
+        </p>
+      </div>
+
+      <h2 class="section-title" style="margin-top: var(--space-xl);">Βιβλιογραφία</h2>
+      <ul class="ref-list">
+        {
+          books.map((b) => (
+            <li class="ref-list__item">
+              <span class="ref-list__title">{b.title}</span>
+              <span class="ref-list__author">{b.author}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2 class="section-title" style="margin-top: var(--space-xl);">Χρήσιμοι Σύνδεσμοι</h2>
+      <ul class="prose">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 </BaseLayout>

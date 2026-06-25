@@ -21,6 +21,14 @@ import { site } from '../config/site';
           <p class="contact-info__label">Τηλέφωνο</p>
           <p class="contact-info__value">
             <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>{site.contact.phone}</a>
+            {
+              site.contact.mobile && (
+                <>
+                  {' · '}
+                  <a href={`tel:${site.contact.mobile.replace(/\s/g, '')}`}>{site.contact.mobile}</a>
+                </>
+              )
+            }
           </p>
         </div>
         <div class="contact-info__item">
@@ -38,6 +46,14 @@ import { site } from '../config/site';
         <div class="contact-info__item">
           <p class="contact-info__label">Ώρες Λειτουργίας</p>
           <p class="contact-info__value">{site.hours}</p>
+        </div>
+        <div class="contact-info__item">
+          <p class="contact-info__label">Στο διαδίκτυο</p>
+          <p class="contact-info__value">
+            <a href={site.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
+            {' · '}
+            <a href={site.social.blog} target="_blank" rel="noopener noreferrer">Ιστολόγιο</a>
+          </p>
         </div>
       </div>
 

@@ -1,16 +1,32 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
-import PlaceholderContent from '../../components/PlaceholderContent.astro';
+import { presidents } from '../../config/site';
 ---
 
 <BaseLayout title="Πρόεδροι">
   <PageHeader title="Πρόεδροι" breadcrumbs={[{ label: 'Σύλλογος' }]} />
   <section class="section">
-    <div class="container prose">
-      <PlaceholderContent>
-        <p>Εδώ θα καταχωρηθούν οι πρόεδροι του συλλόγου ανά περίοδο.</p>
-      </PlaceholderContent>
+    <div class="container">
+      <p class="prose">
+        Πρόεδροι του Συλλόγου ανά περίοδο, όπως προκύπτει από τα διαθέσιμα στοιχεία
+        του ιστολογίου του Συλλόγου. Ο κατάλογος συμπληρώνεται διαρκώς.
+      </p>
+      <div class="president-list">
+        {
+          presidents.map((p) => (
+            <article class="president-card">
+              <div class="president-card__period">{p.period}</div>
+              <h3 class="president-card__name">{p.name}</h3>
+              {p.note && <p class="president-card__note">{p.note}</p>}
+            </article>
+          ))
+        }
+      </div>
+      <p class="prose prose-note" style="margin-top: var(--space-lg);">
+        Διαθέτετε στοιχεία για παλαιότερες ή νεότερες θητείες; Επικοινωνήστε μαζί μας
+        για να εμπλουτίσουμε τον κατάλογο.
+      </p>
     </div>
   </section>
 </BaseLayout>

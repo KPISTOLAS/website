@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
-import PlaceholderContent from '../../components/PlaceholderContent.astro';
-
-const placeholders = Array.from({ length: 8 }, (_, i) => i + 1);
+import { galleryItems, galleryCategories } from '../../data/gallery';
+import { site } from '../../config/site';
 ---
 
 <BaseLayout title="Φωτογραφίες">
@@ -11,20 +10,89 @@ const placeholders = Array.from({ length: 8 }, (_, i) => i + 1);
   <section class="section">
     <div class="container">
       <p class="prose">
-        Φωτογραφικό αρχείο από εκδηλώσεις, παρουσιάσεις και δράσεις του συλλόγου.
+        Φωτογραφικό αρχείο από εκδηλώσεις, ανταμώματα, παρουσιάσεις και δράσεις του
+        Συλλόγου. Οι φωτογραφίες προέρχονται από το ιστολόγιο του Συλλόγου,
+        <a href={site.social.blog} target="_blank" rel="noopener noreferrer">«Ο Φλάμπουρας»</a>.
       </p>
-      <div class="photo-grid" style="margin-top: 2rem;">
-        {
-          placeholders.map((n) => (
-            <div class="photo-placeholder">
-              <span>Φωτογραφία {n}</span>
+
+      {
+        galleryCategories.map((cat) => {
+          const items = galleryItems.filter((i) => i.category === cat.id);
+          if (items.length === 0) return null;
+          return (
+            <div class="gallery-group">
+              <h2 class="section-title">{cat.label}</h2>
+              <div class="photo-grid">
+                {items.map((item) => (
+                  <button
+                    type="button"
+                    class="photo-card"
+                    data-src={item.src}
+                    data-caption={item.caption}
+                    aria-label={item.caption}
+                  >
+                    <img src={item.src} alt={item.caption} loading="lazy" decoding="async" />
+                    <span class="photo-card__caption">{item.caption}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-          ))
-        }
-      </div>
-      <div style="margin-top: 2rem;">
-        <PlaceholderContent message="Οι φωτογραφίες θα προστεθούν σύντομα." />
-      </div>
+          );
+        })
+      }
     </div>
   </section>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button type="button" class="lightbox__close" id="lightbox-close" aria-label="Κλείσιμο">×</button>
+    <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightbox-prev" aria-label="Προηγούμενη">‹</button>
+    <figure class="lightbox__figure">
+      <img class="lightbox__img" id="lightbox-img" src="" alt="" />
+      <figcaption class="lightbox__caption" id="lightbox-caption"></figcaption>
+    </figure>
+    <button type="button" class="lightbox__nav lightbox__nav--next" id="lightbox-next" aria-label="Επόμενη">›</button>
+  </div>
+
+<script>
+  const cards = Array.from(document.querySelectorAll<HTMLButtonElement>('.photo-card'));
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+  const lbCaption = document.getElementById('lightbox-caption');
+  const btnClose = document.getElementById('lightbox-close');
+  const btnPrev = document.getElementById('lightbox-prev');
+  const btnNext = document.getElementById('lightbox-next');
+  let current = -1;
+
+  function show(index: number) {
+    if (!lightbox || !lbImg || !lbCaption) return;
+    const total = cards.length;
+    current = (index + total) % total;
+    const card = cards[current];
+    lbImg.src = card.dataset.src ?? '';
+    lbImg.alt = card.dataset.caption ?? '';
+    lbCaption.textContent = card.dataset.caption ?? '';
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    if (!lightbox) return;
+    lightbox.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  cards.forEach((card, i) => card.addEventListener('click', () => show(i)));
+  btnClose?.addEventListener('click', close);
+  btnPrev?.addEventListener('click', () => show(current - 1));
+  btnNext?.addEventListener('click', () => show(current + 1));
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (lightbox?.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+</script>
 </BaseLayout>

@@ -1,18 +1,45 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import PlaceholderContent from '../components/PlaceholderContent.astro';
+import { activityHighlights } from '../config/site';
 ---
 
 <BaseLayout title="Δραστηριότητες">
   <PageHeader title="Δραστηριότητες" />
   <section class="section">
-    <div class="container prose">
-      <p>
-        Εδώ θα δημοσιεύονται οι πολιτιστικές εκδηλώσεις, συμμετοχές σε πανελλήνιες
-        εκδηλώσεις, εκδρομές και άλλες δράσεις του συλλόγου.
+    <div class="container">
+      <p class="prose">
+        Ο Σύλλογος αναπτύσσει πλούσια πολιτιστική δράση: από το ετήσιο Αντάμωμα στη
+        Μπουζάλα και τον καθιερωμένο ετήσιο χορό, μέχρι τη συμμετοχή σε πανελλήνιες
+        εκδηλώσεις, παρελάσεις και πολιτιστικά δρώμενα στην Καβάλα.
       </p>
-      <PlaceholderContent message="Δεν υπάρχουν ακόμη καταχωρημένες δραστηριότητες." />
+      <div class="grid grid--2" style="margin-top: 2rem;">
+        {
+          activityHighlights.map((act) => (
+            <div class="dance-group">
+              <h3 class="dance-group__title">{act.title}</h3>
+              <p class="dance-group__desc">{act.description}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="prose" style="margin-top: 2rem;">
+        <h2>Το Αντάμωμα στη Μπουζάλα</h2>
+        <p>
+          Στη θέση «Καλύβια Κούτρα» του Δάσους Ελατιάς Δράμας, κατά μήκος της
+          ελληνοβουλγαρικής μεθορίου, ο Σύλλογος διοργανώνει επί σειρά ετών το
+          Αντάμωμα Σαρακατσαναίων Ανατολικής Μακεδονίας &amp; Θράκης. Εκεί, όπου
+          κάποτε ζούσαν χιλιάδες Σαρακατσαναίοι με τα κοπάδια τους, αναβιώνει το
+          έθιμο «Γκουρμπάνι», χορεύουν τα χορευτικά των συλλόγων και το γλέντι
+          κρατάει μέχρι το πρωί. Το 2010 κατασκευάστηκε νέο καλύβι με σιδερένιο
+          σκελετό, ώστε να αντέχει στις καιρικές συνθήκες της περιοχής.
+        </p>
+        <p class="prose-note">
+          Δείτε φωτογραφίες από τις εκδηλώσεις στο <a href="/arxeio/fotografies">Φωτογραφικό Αρχείο</a>.
+          Για τις τρέχουσες ημερομηνίες και ανακοινώσεις, παρακολουθήστε τη
+          <a href="https://www.facebook.com/groups/58563429647/" target="_blank" rel="noopener noreferrer">σελίδα μας στο Facebook</a>.
+        </p>
+      </div>
     </div>
   </section>
 </BaseLayout>

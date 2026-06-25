@@ -2,7 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import AnnouncementList from '../components/AnnouncementList.astro';
-import { announcements, quickLinks } from '../config/site';
+import { announcements, quickLinks, activityHighlights } from '../config/site';
+import { galleryItems } from '../data/gallery';
+
+const featuredPhotos = galleryItems.filter((i) => i.category === 'antamoma').slice(0, 6);
 ---
 
 <BaseLayout title="Αρχική">
@@ -10,8 +13,62 @@ import { announcements, quickLinks } from '../config/site';
 
   <section class="section">
     <div class="container">
-      <h2 class="section-title">Ανακοινώσεις Συλλόγου</h2>
-      <AnnouncementList items={announcements} />
+      <div class="prose" style="max-width: 70ch;">
+        <h2 class="section-title">Ο Σύλλογός μας</h2>
+        <p>
+          Ο Σύλλογος Σαρακατσαναίων Ν. Καβάλας «Ο Φλάμπουρας» κρατά ζωντανή τη
+          σαρακατσάνικη παράδοση μέσα από τα χορευτικά του τμήματα, το ετήσιο
+          Αντάμωμα στη Μπουζάλα, τον καθιερωμένο ετήσιο χορό και πλήθος πολιτιστικών
+          δράσεων. Με έδρα τη Νέα Κώμη Καβάλας, διασώζει και μεταδίδει τους χορούς,
+          τα τραγούδια και τα έθιμα των Σαρακατσαναίων στις νεότερες γενιές.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {
+    announcements.length > 0 && (
+      <section class="section section--alt">
+        <div class="container">
+          <h2 class="section-title">Ανακοινώσεις Συλλόγου</h2>
+          <AnnouncementList items={announcements} />
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="section-title">Δραστηριότητες</h2>
+      <div class="grid grid--3">
+        {
+          activityHighlights.slice(0, 6).map((act) => (
+            <div class="dance-group">
+              <h3 class="dance-group__title">{act.title}</h3>
+              <p class="dance-group__desc">{act.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Από το αρχείο μας</h2>
+      <div class="photo-grid">
+        {
+          featuredPhotos.map((photo) => (
+            <a href="/arxeio/fotografies" class="photo-card" aria-label={photo.caption}>
+              <img src={photo.src} alt={photo.caption} loading="lazy" decoding="async" />
+              <span class="photo-card__caption">{photo.caption}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p style="margin-top: var(--space-md);">
+        <a href="/arxeio/fotografies" class="btn btn--outline">Όλες οι φωτογραφίες</a>
+      </p>
     </div>
   </section>
 

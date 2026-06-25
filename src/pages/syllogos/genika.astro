@@ -1,16 +1,42 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
-import PlaceholderContent from '../../components/PlaceholderContent.astro';
+import { timeline } from '../../config/site';
 ---
 
 <BaseLayout title="Γενικά">
   <PageHeader title="Γενικά" breadcrumbs={[{ label: 'Σύλλογος' }]} />
   <section class="section">
-    <div class="container prose">
-      <PlaceholderContent>
-        <p>Γενικές πληροφορίες για τον σύλλογο, καταστατικό και λοιπά έγγραφα.</p>
-      </PlaceholderContent>
+    <div class="container">
+      <div class="prose">
+        <p>
+          Ο Σύλλογος Σαρακατσαναίων Ν. Καβάλας «Ο Φλάμπουρας» δραστηριοποιείται στον
+          Νομό Καβάλας, με έδρα τη Νέα Κώμη. Διατηρεί χορευτικά τμήματα, διοργανώνει
+          τον ετήσιο χορό και το Αντάμωμα στη Μπουζάλα και συμμετέχει στις
+          πολιτιστικές εκδηλώσεις της περιοχής.
+        </p>
+        <p>
+          Το όνομα «Φλάμπουρας» (φλάμπουρο) είναι το λάβαρο/σημαία — σύμβολο
+          λευτεριάς και περηφάνιας, βαθιά συνδεδεμένο με τη σαρακατσάνικη παράδοση
+          και τη μνήμη αγωνιστών όπως ο Κατσαντώνης, που «ανυψώθηκε σε φλάμπουρο
+          εθνικής λύτρωσης».
+        </p>
+      </div>
+
+      <h2 class="section-title" style="margin-top: var(--space-xl);">Σταθμοί</h2>
+      <ol class="timeline">
+        {
+          timeline.map((entry) => (
+            <li class="timeline__item">
+              <span class="timeline__year">{entry.year}</span>
+              <div class="timeline__content">
+                <h3 class="timeline__title">{entry.title}</h3>
+                <p class="timeline__desc">{entry.description}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 </BaseLayout>
